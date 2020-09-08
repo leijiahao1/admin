@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import './login.css'
 import logo from './images/logo.png'
-import { Form, Input, Button,} from 'antd';
+import { Form, Input, Button,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {reqLogin} from '../../api'
+
 
 const Item=Form.Item
 // 登录路由组件
+
+
 export default class Login extends Component {
-  handleSubmit=(event)=>{
-    event.preventDefaule()
-    this.props.form.validator((err,values)=>{
-      if(!err){
-        console.log('提交登录的ajax请求',values)
-      }
-    })
-  }
+  
   //密码验证
+  
   validatorPwd=(rule,value)=>{
     if(!value){
       return Promise.reject('请输入密码')
@@ -29,14 +27,33 @@ export default class Login extends Component {
       return Promise.resolve();
     }
   }
-
-  render() {
-
+ 
+  render() { 
     
+    //已登陆自动跳转
+    
+    const onFinish =async values => {
+      // console.log('Received values of form: ', values);
+      // value的值{username: "admin", password: "admin"}
+    
+      const response = await reqLogin(values.username, values.password)
+    //  response的值{status: 0, data: {…}}
+      
+      // console.log(response)
+      if(response.status===0){
+        message.success('登陆成功')
+     
+       
+        // 跳转到管理界面 (不需要再回退回到登陆)
+        this.props.history.replace('/')
+      }else{
+        message.error(response.msg)
+      }
+    };
+  
+   
+  
     return (
-
-
-
       <div className="login">
         <header className="login-header">
           <img src={logo} alt='logo'/>
@@ -44,16 +61,16 @@ export default class Login extends Component {
         </header>
         <section className="login-content">
           <h2>用户登录</h2>
-      
-      
-                  <Form
-              name="normal_login"
-              className="login-form"
-              initialValues={{
-                remember: true,
-              }}
-            
-            >
+          <Form
+        onFinish={onFinish}
+       
+          name="normal_login"
+          className="login-form"
+          initialValues={{
+            remember: true,
+          }}
+          
+              >
               <Item
                 name="username"
                 rules={[
@@ -87,9 +104,7 @@ export default class Login extends Component {
                   placeholder="密码"
                 />
               </Item>
-              
-
-              <Item>
+               <Item>
                 <Button type="primary" htmlType="submit" className="login-form-button">
                 登录
                 </Button>
