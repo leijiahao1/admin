@@ -9,14 +9,18 @@ import Admin from './pages/admin/admin'
  */
 export default class App extends Component {
 
-
+  componentWillUnmount (){
+    window.localStorage.removeItem('isLogin','')
+  }
+  
   render () {
+    
     return (
       <BrowserRouter>
         <Switch> {/*只匹配其中一个*/}
           <Route path='/login' component={Login}></Route>
           <Route path='/' component={Admin}></Route>
-           </Switch>
+        </Switch>
       </BrowserRouter>
     )
   }

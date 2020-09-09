@@ -11,7 +11,6 @@ export default {
     // localStorage.setItem(USER_KEY, JSON.stringify(user))
     store.set(USER_KEY, user)
   },
-
   /*
   读取user
    */
@@ -19,7 +18,6 @@ export default {
     // return JSON.parse(localStorage.getItem(USER_KEY) || '{}')
     return store.get(USER_KEY) || {}
   },
-
   /*
   删除user
    */

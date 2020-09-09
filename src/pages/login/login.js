@@ -30,22 +30,18 @@ export default class Login extends Component {
  
   render() { 
     
-    //已登陆自动跳转
     
     const onFinish =async values => {
-      // console.log('Received values of form: ', values);
-      // value的值{username: "admin", password: "admin"}
-    
-      const response = await reqLogin(values.username, values.password)
-    //  response的值{status: 0, data: {…}}
       
-      // console.log(response)
+      const response = await reqLogin(values.username, values.password)
+      
       if(response.status===0){
+        
+        window.localStorage.setItem('isLogin',JSON.stringify(response.status))
         message.success('登陆成功')
-     
+         this.props.history.replace('/')
+        
        
-        // 跳转到管理界面 (不需要再回退回到登陆)
-        this.props.history.replace('/')
       }else{
         message.error(response.msg)
       }
