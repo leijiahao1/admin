@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './login.css'
-import logo from './images/logo.png'
+import logo from '../../assets/images/logo.png'
 import { Form, Input, Button,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {reqLogin} from '../../api'
@@ -35,9 +35,11 @@ export default class Login extends Component {
       
       const response = await reqLogin(values.username, values.password)
       
+      console.log(response)
       if(response.status===0){
-        
-        window.localStorage.setItem('isLogin',JSON.stringify(response.status))
+        window.sessionStorage.setItem('username',JSON.stringify(response.data.username))
+        window.sessionStorage.setItem('isLogin',JSON.stringify(response.status))
+      
         message.success('登陆成功')
          this.props.history.replace('/')
         

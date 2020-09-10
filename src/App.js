@@ -9,9 +9,7 @@ import Admin from './pages/admin/admin'
  */
 export default class App extends Component {
 
-  componentWillUnmount (){
-    window.localStorage.removeItem('isLogin','')
-  }
+  
   
   render () {
     
