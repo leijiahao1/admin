@@ -6,9 +6,9 @@ import {
   Button,
   Icon,
   message,
-  Modal
+  
 } from 'antd'
-import {reqCategorys, reqUpdateCategory, reqAddCategory} from '../../api'
+import {reqCategorys, } from '../../api'
 
 
 

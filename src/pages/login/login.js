@@ -41,6 +41,7 @@ export default class Login extends Component {
         window.sessionStorage.setItem('isLogin',JSON.stringify(response.status))
       
         message.success('登陆成功')
+        
          this.props.history.replace('/')
         
        
@@ -50,7 +51,7 @@ export default class Login extends Component {
     };
   
    
-  
+    
     return (
       <div className="login">
         <header className="login-header">
